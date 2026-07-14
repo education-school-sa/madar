@@ -273,8 +273,6 @@ button, input, a { font: inherit; }
   filter: drop-shadow(0 4px 13px rgba(37,16,79,.11));
 }
 
-.sigma-one { top: 16%; left: 7%; font-size: clamp(74px, 8vw, 132px); }
-.sigma-two { right: 16%; bottom: 9%; font-size: clamp(62px, 6vw, 105px); }
 .integral { display: none; }
 
 .geo-shape {
@@ -315,7 +313,7 @@ button, input, a { font: inherit; }
 }
 
 @media (max-width: 980px) {
-  .geo-shape, .sigma-two { opacity: .32; }
+  .geo-shape { opacity: .32; }
   .geo-cube, .geo-tetra, .geo-globe { right: -35px; }
   .geo-pyramid { left: -25px; }
 }
