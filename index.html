@@ -539,11 +539,12 @@
           });
           option.classList.add("selected");
           option.setAttribute("aria-pressed", "true");
-          localStorage.setItem("madar-login-role", option.dataset.role || "");
+          const role = option.dataset.role || "student";
+          localStorage.setItem("madar-login-role", role);
+          window.location.href = `login.html?role=${encodeURIComponent(role)}`;
         });
       });
     })();
   </script>
 </body>
 </html>
-
