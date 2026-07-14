@@ -55,13 +55,13 @@ button, input, a { font: inherit; }
 .login-card {
   position: relative;
   z-index: 5;
-  width: min(470px, 90vw);
+  width: min(385px, 88vw);
   min-height: 0;
-  padding: 30px 34px 28px;
+  padding: 23px 25px 21px;
   overflow: hidden;
   text-align: center;
   border: 2px solid rgba(141, 103, 222, .82);
-  border-radius: 26px;
+  border-radius: 22px;
   background:
     linear-gradient(145deg, rgba(255,255,255,.08), transparent 38%),
     linear-gradient(180deg, #505361 0%, var(--gray-card) 46%, var(--gray-card-dark) 100%);
@@ -81,8 +81,8 @@ button, input, a { font: inherit; }
 
 .login-card h1 {
   position: relative;
-  margin: 0 0 25px;
-  font-size: clamp(29px, 2.6vw, 37px);
+  margin: 0 0 18px;
+  font-size: clamp(26px, 2.1vw, 31px);
   font-weight: 900;
   text-shadow: 0 3px 15px rgba(21,14,40,.28);
 }
@@ -90,19 +90,19 @@ button, input, a { font: inherit; }
 .field {
   position: relative;
   display: block;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .field input {
   width: 100%;
-  height: 64px;
-  padding: 0 65px 0 58px;
+  height: 54px;
+  padding: 0 56px 0 49px;
   border: 1px solid rgba(43,39,57,.12);
-  border-radius: 20px;
+  border-radius: 16px;
   outline: none;
   color: #34313e;
   background: #fff;
-  font-size: clamp(17px, 1.45vw, 21px);
+  font-size: clamp(16px, 1.2vw, 18px);
   text-align: right;
   box-shadow: 0 10px 20px rgba(28,27,38,.14);
   transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
@@ -124,9 +124,9 @@ button, input, a { font: inherit; }
 }
 
 .field > svg {
-  left: 20px;
-  width: 29px;
-  height: 29px;
+  left: 16px;
+  width: 25px;
+  height: 25px;
   fill: none;
   stroke: #686478;
   stroke-width: 1.7;
@@ -134,12 +134,12 @@ button, input, a { font: inherit; }
   stroke-linejoin: round;
 }
 
-.password-field .key-icon { left: 20px; }
+.password-field .key-icon { left: 16px; }
 
 .password-toggle {
-  right: 17px;
-  width: 36px;
-  height: 36px;
+  right: 13px;
+  width: 32px;
+  height: 32px;
   display: grid;
   place-items: center;
   padding: 5px;
@@ -150,8 +150,8 @@ button, input, a { font: inherit; }
 }
 
 .password-toggle svg {
-  width: 26px;
-  height: 26px;
+  width: 23px;
+  height: 23px;
   fill: none;
   stroke: currentColor;
   stroke-width: 1.7;
@@ -162,7 +162,7 @@ button, input, a { font: inherit; }
 .password-toggle.is-visible::after {
   content: "";
   position: absolute;
-  width: 26px;
+  width: 23px;
   height: 2px;
   border-radius: 2px;
   background: currentColor;
@@ -172,11 +172,11 @@ button, input, a { font: inherit; }
 .submit-button,
 .create-account {
   width: 100%;
-  min-height: 62px;
+  min-height: 52px;
   display: grid;
   place-items: center;
-  border-radius: 20px;
-  font-size: clamp(19px, 1.6vw, 23px);
+  border-radius: 16px;
+  font-size: clamp(17px, 1.3vw, 20px);
   font-weight: 800;
   transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
 }
@@ -201,15 +201,15 @@ button, input, a { font: inherit; }
 
 .form-message {
   min-height: 18px;
-  margin: -10px 0 8px;
-  font-size: 14px;
+  margin: -8px 0 6px;
+  font-size: 12px;
   color: #ffdde5;
   font-weight: 700;
 }
 
 .account-question {
-  margin: 21px 0 15px;
-  font-size: clamp(17px, 1.35vw, 20px);
+  margin: 16px 0 11px;
+  font-size: clamp(15px, 1.15vw, 17px);
 }
 
 .create-account {
