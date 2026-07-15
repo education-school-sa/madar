@@ -34,6 +34,48 @@ router.post("/login", async (req, res) => {
   }
 });
 
+router.post("/register", async (req, res) => {
+  const { name, email, password, confirmPassword, agreeTerms } = req.body || {};
+  if (!name || !name.trim()) {
+    return res.status(400).json({ error: "يرجى إدخال اسم المعلمة." });
+  }
+  if (!email || !email.trim()) {
+    return res.status(400).json({ error: "يرجى إدخال البريد الإلكتروني." });
+  }
+  if (!password || !confirmPassword) {
+    return res.status(400).json({ error: "يرجى إدخال كلمة المرور وتأكيدها." });
+  }
+  if (password.length < 8) {
+    return res.status(400).json({ error: "يجب أن تكون كلمة المرور 8 أحرف على الأقل." });
+  }
+  if (password !== confirmPassword) {
+    return res.status(400).json({ error: "كلمة المرور وتأكيدها غير متطابقين." });
+  }
+  if (!agreeTerms) {
+    return res.status(400).json({ error: "يجب الموافقة على الشروط والأحكام لإنشاء الحساب." });
+  }
+  try {
+    const passwordHash = await hashPassword(password);
+    const { rows } = await pool.query(
+      "INSERT INTO teachers (name, email, password_hash) VALUES ($1,$2,$3) RETURNING id, name, email",
+      [name.trim(), email.trim().toLowerCase(), passwordHash]
+    );
+    const teacher = rows[0];
+    req.session.teacherId = teacher.id;
+    await pool.query(
+      "INSERT INTO activity_log (teacher_id, action, details) VALUES ($1,$2,$3)",
+      [teacher.id, "إنشاء حساب", "تم إنشاء حساب معلمة جديد وتسجيل الدخول تلقائيًا"]
+    );
+    res.status(201).json(teacher);
+  } catch (err) {
+    if (err.code === "23505") {
+      return res.status(400).json({ error: "هذا البريد الإلكتروني مسجّل بالفعل، يرجى تسجيل الدخول." });
+    }
+    console.error("register error", err);
+    res.status(500).json({ error: "حدث خطأ في الخادم، حاولي مرة أخرى." });
+  }
+});
+
 router.post("/logout", (req, res) => {
   req.session.destroy(() => {
     res.json({ ok: true });

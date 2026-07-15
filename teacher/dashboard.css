@@ -67,6 +67,8 @@ button { font-family: inherit; cursor: pointer; }
 .login-sub { color: var(--muted); font-size: .92rem; margin-bottom: 24px; }
 
 .login-card form { display: flex; flex-direction: column; gap: 16px; text-align: right; }
+.login-card form[hidden] { display: none !important; }
+.login-hint[hidden] { display: none !important; }
 .login-card label { font-size: .88rem; color: var(--purple-900); font-weight: 600; display: flex; flex-direction: column; gap: 6px; }
 .login-card input {
   border: 1.5px solid var(--border);

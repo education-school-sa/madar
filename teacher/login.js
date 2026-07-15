@@ -1,18 +1,34 @@
-const form = document.getElementById("loginForm");
-const errorBox = document.getElementById("loginError");
+const tabsWrap = document.getElementById("authTabs");
+const loginForm = document.getElementById("loginForm");
+const registerForm = document.getElementById("registerForm");
+const loginError = document.getElementById("loginError");
+const registerError = document.getElementById("registerError");
+const loginHint = document.getElementById("loginHint");
 
 // If already logged in, go straight to the dashboard.
 fetch("/api/teacher/me")
   .then((r) => (r.ok ? (window.location.href = "index.html") : null))
   .catch(() => {});
 
-form.addEventListener("submit", async (event) => {
+tabsWrap.addEventListener("click", (e) => {
+  const btn = e.target.closest(".tab-btn");
+  if (!btn) return;
+  tabsWrap.querySelectorAll(".tab-btn").forEach((b) => b.classList.toggle("active", b === btn));
+  const isLogin = btn.dataset.tab === "login";
+  loginForm.hidden = !isLogin;
+  registerForm.hidden = isLogin;
+  loginHint.hidden = !isLogin;
+  loginError.hidden = true;
+  registerError.hidden = true;
+});
+
+loginForm.addEventListener("submit", async (event) => {
   event.preventDefault();
-  errorBox.hidden = true;
+  loginError.hidden = true;
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value;
 
-  const submitBtn = form.querySelector("button[type=submit]");
+  const submitBtn = loginForm.querySelector("button[type=submit]");
   submitBtn.disabled = true;
   submitBtn.textContent = "جارٍ تسجيل الدخول...";
 
@@ -24,16 +40,62 @@ form.addEventListener("submit", async (event) => {
     });
     const data = await res.json();
     if (!res.ok) {
-      errorBox.textContent = data.error || "تعذّر تسجيل الدخول.";
-      errorBox.hidden = false;
+      loginError.textContent = data.error || "تعذّر تسجيل الدخول.";
+      loginError.hidden = false;
       return;
     }
     window.location.href = "index.html";
   } catch (err) {
-    errorBox.textContent = "تعذّر الاتصال بالخادم، حاولي مرة أخرى.";
-    errorBox.hidden = false;
+    loginError.textContent = "تعذّر الاتصال بالخادم، حاولي مرة أخرى.";
+    loginError.hidden = false;
   } finally {
     submitBtn.disabled = false;
     submitBtn.textContent = "تسجيل الدخول";
+  }
+});
+
+registerForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  registerError.hidden = true;
+  const name = document.getElementById("regName").value.trim();
+  const email = document.getElementById("regEmail").value.trim();
+  const password = document.getElementById("regPassword").value;
+  const confirmPassword = document.getElementById("regConfirm").value;
+  const agreeTerms = document.getElementById("regTerms").checked;
+
+  if (password !== confirmPassword) {
+    registerError.textContent = "كلمة المرور وتأكيدها غير متطابقين.";
+    registerError.hidden = false;
+    return;
+  }
+  if (!agreeTerms) {
+    registerError.textContent = "يجب الموافقة على الشروط والأحكام لإنشاء الحساب.";
+    registerError.hidden = false;
+    return;
+  }
+
+  const submitBtn = registerForm.querySelector("button[type=submit]");
+  submitBtn.disabled = true;
+  submitBtn.textContent = "جارٍ إنشاء الحساب...";
+
+  try {
+    const res = await fetch("/api/teacher/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, email, password, confirmPassword, agreeTerms }),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      registerError.textContent = data.error || "تعذّر إنشاء الحساب.";
+      registerError.hidden = false;
+      return;
+    }
+    window.location.href = "index.html";
+  } catch (err) {
+    registerError.textContent = "تعذّر الاتصال بالخادم، حاولي مرة أخرى.";
+    registerError.hidden = false;
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.textContent = "إنشاء الحساب";
   }
 });

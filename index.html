@@ -586,10 +586,6 @@
           option.setAttribute("aria-pressed", "true");
           const role = option.dataset.role || "student";
           localStorage.setItem("madar-login-role", role);
-          if (role === "teacher") {
-            window.location.href = "teacher/login.html";
-            return;
-          }
           window.location.href = `login.html?role=${encodeURIComponent(role)}`;
         });
       });

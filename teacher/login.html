@@ -3,14 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>تسجيل دخول المعلمة | مدار</title>
+  <title>لوحة المعلمة | مدار</title>
   <link rel="stylesheet" href="dashboard.css?v=1" />
 </head>
 <body class="login-body">
   <div class="login-card">
     <a href="../index.html" class="login-brand">مدار<i>✦</i></a>
     <h1>لوحة المعلمة</h1>
-    <p class="login-sub">سجّلي دخولكِ لمتابعة طالباتكِ واختباراتهنّ</p>
+    <p class="login-sub">سجّلي دخولكِ أو أنشئي حسابًا جديدًا لمتابعة طالباتكِ واختباراتهنّ</p>
+
+    <div class="tabs" id="authTabs" style="justify-content:center">
+      <button type="button" class="tab-btn active" data-tab="login">تسجيل الدخول</button>
+      <button type="button" class="tab-btn" data-tab="register">إنشاء حساب جديد</button>
+    </div>
 
     <form id="loginForm" novalidate>
       <label>البريد الإلكتروني
@@ -23,7 +28,28 @@
       <button type="submit" class="btn btn-primary btn-block">تسجيل الدخول</button>
     </form>
 
-    <p class="login-hint">بيانات تجريبية: teacher@madar.sa / Teacher@2026</p>
+    <form id="registerForm" novalidate hidden>
+      <label>اسم المعلمة
+        <input type="text" id="regName" required autocomplete="name" placeholder="مثال: سارة العتيبي" />
+      </label>
+      <label>البريد الإلكتروني
+        <input type="email" id="regEmail" required autocomplete="username" placeholder="name@madar.sa" />
+      </label>
+      <label>كلمة المرور
+        <input type="password" id="regPassword" required autocomplete="new-password" placeholder="8 أحرف على الأقل" />
+      </label>
+      <label>تأكيد كلمة المرور
+        <input type="password" id="regConfirm" required autocomplete="new-password" placeholder="أعيدي كتابة كلمة المرور" />
+      </label>
+      <label style="flex-direction:row; align-items:flex-start; gap:8px; font-weight:500;">
+        <input type="checkbox" id="regTerms" style="width:16px;height:16px;margin-top:2px" />
+        <span>أوافق على <a href="../index.html#about" style="color:var(--purple-700); text-decoration:underline">الشروط والأحكام</a> الخاصة بمنصة مدار</span>
+      </label>
+      <div id="registerError" class="form-error" hidden></div>
+      <button type="submit" class="btn btn-primary btn-block">إنشاء الحساب</button>
+    </form>
+
+    <p class="login-hint" id="loginHint">بيانات تجريبية: teacher@madar.sa / Teacher@2026</p>
   </div>
   <script src="login.js?v=1" type="module"></script>
 </body>
