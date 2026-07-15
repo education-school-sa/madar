@@ -1,0 +1,177 @@
+.register-page {
+  min-height: 100vh;
+  padding-block: 74px 45px;
+  overflow-y: auto;
+}
+
+.register-card {
+  width: min(500px, 92vw);
+  padding: 26px 32px 28px;
+}
+
+.register-card h1 {
+  margin-bottom: 5px;
+  font-size: clamp(25px, 2vw, 31px);
+}
+
+.register-intro {
+  position: relative;
+  margin: 0 0 20px;
+  color: #6d667b;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.register-form {
+  position: relative;
+  text-align: right;
+}
+
+.register-field {
+  margin-bottom: 14px;
+}
+
+.field-label {
+  display: block;
+  margin: 0 4px 6px;
+  color: #3f315c;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.register-card .field input {
+  height: 51px;
+  padding: 0 15px;
+  border-radius: 15px;
+  font-size: 16px;
+}
+
+.register-card .password-field input {
+  padding-left: 52px;
+}
+
+.input-wrap {
+  position: relative;
+  display: block;
+}
+
+.register-card .password-toggle {
+  right: auto;
+  left: 12px;
+  color: #686478;
+}
+
+.daughter-emails {
+  margin-bottom: 14px;
+  padding: 13px;
+  border: 1px solid rgba(71,33,140,.12);
+  border-radius: 17px;
+  background: rgba(255,255,255,.40);
+}
+
+.daughter-emails-title {
+  margin: 0 2px 8px;
+  color: #3f315c;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.daughter-email-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  margin-top: 9px;
+}
+
+.daughter-email-row input {
+  width: 100%;
+  height: 49px;
+  padding: 0 14px;
+  border: 1px solid rgba(71,33,140,.13);
+  border-radius: 14px;
+  outline: none;
+  color: #34313e;
+  background: #fff;
+  font-size: 15px;
+  direction: ltr;
+  text-align: left;
+  box-shadow: 0 7px 15px rgba(55,45,76,.08);
+}
+
+.daughter-email-row input:focus {
+  border-color: var(--mauve-500);
+  box-shadow: 0 0 0 3px rgba(141,103,222,.16);
+}
+
+.remove-daughter {
+  width: 42px;
+  border: 0;
+  border-radius: 13px;
+  color: #8a4260;
+  background: #f9e9ef;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.add-daughter {
+  width: 100%;
+  min-height: 45px;
+  margin-top: 10px;
+  border: 1px dashed var(--mauve-500);
+  border-radius: 13px;
+  color: var(--mauve-800);
+  background: rgba(245,240,255,.68);
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.register-message {
+  min-height: 20px;
+  margin: 3px 2px 8px;
+  font-size: 13px;
+}
+
+.register-submit {
+  min-height: 54px;
+  margin-top: 2px;
+  border-radius: 15px;
+  font-size: 18px;
+}
+
+.success-panel {
+  position: relative;
+  padding: 42px 12px 28px;
+  text-align: center;
+}
+
+.success-icon {
+  width: 76px;
+  height: 76px;
+  margin: 0 auto 20px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: #fff;
+  background: linear-gradient(135deg, #35bbb7, #178f98);
+  font-size: 42px;
+  font-weight: 900;
+  box-shadow: 0 13px 30px rgba(25,143,152,.25);
+}
+
+.success-panel p {
+  margin: 12px auto 24px;
+  color: #625a73;
+  line-height: 1.8;
+}
+
+.success-link {
+  color: #fff;
+  text-decoration: none;
+}
+
+@media (max-width: 680px) {
+  .register-page { padding: 78px 12px 34px; }
+  .register-card { padding: 24px 18px; }
+  .register-intro { font-size: 13px; }
+  .register-card .field input { height: 52px; }
+}
