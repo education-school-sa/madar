@@ -1586,7 +1586,7 @@ body {
   .mobile-stage-card {
     position: relative;
     width: 100%;
-    aspect-ratio: 1.5 / 1;
+    aspect-ratio: 1.28 / 1;
     overflow: hidden;
     padding: 0;
     border: 0;
@@ -1607,15 +1607,15 @@ body {
   }
 
   .mobile-stage-primary img {
-    transform: translate(-66%, -32.4%);
+    transform: translate(-66%, -23%);
   }
 
   .mobile-stage-middle img {
-    transform: translate(-36.5%, -32.4%);
+    transform: translate(-36.5%, -23%);
   }
 
   .mobile-stage-secondary img {
-    transform: translate(-4.4%, -32.4%);
+    transform: translate(-4.4%, -23%);
   }
 
   .mobile-stage-card:active {
