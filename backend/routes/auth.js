@@ -11,7 +11,7 @@ router.post("/login", async (req, res) => {
   }
   try {
     const { rows } = await pool.query(
-      "SELECT id, name, email, password_hash FROM teachers WHERE email = $1",
+      "SELECT id, name, email, password_hash, disabled FROM teachers WHERE email = $1",
       [email.trim().toLowerCase()]
     );
     const teacher = rows[0];
@@ -21,6 +21,9 @@ router.post("/login", async (req, res) => {
     const ok = await verifyPassword(password, teacher.password_hash);
     if (!ok) {
       return res.status(401).json({ error: "البريد الإلكتروني أو كلمة المرور غير صحيحة." });
+    }
+    if (teacher.disabled) {
+      return res.status(403).json({ error: "تم تعطيل هذا الحساب. يرجى التواصل مع مالكة الموقع." });
     }
     req.session.teacherId = teacher.id;
     await pool.query(
@@ -35,6 +38,10 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/register", async (req, res) => {
+  const settingRow = await pool.query("SELECT value FROM app_settings WHERE key = 'teacher_registration_enabled'");
+  if (settingRow.rows[0] && settingRow.rows[0].value === "false") {
+    return res.status(403).json({ error: "إنشاء حسابات المعلمات معطّل حاليًا من قِبل مالكة الموقع." });
+  }
   const { name, email, password, confirmPassword, agreeTerms } = req.body || {};
   if (!name || !name.trim()) {
     return res.status(400).json({ error: "يرجى إدخال اسم المعلمة." });
