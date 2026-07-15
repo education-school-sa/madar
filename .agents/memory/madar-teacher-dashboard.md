@@ -20,3 +20,8 @@ The Screenshot tool's browser has no access to cookies obtained via curl or fetc
 Built as a single SPA (`teacher/dashboard.js`, hash-routed sections) backed by a full REST API under `/api/teacher/*`, rather than many separate multi-page HTML files — chosen for feasibility given the very large feature scope (roster mgmt, 3 test categories with question builder + auto-grading, multi-level analysis, Excel/PDF export, notifications, classes, activity log).
 
 **Why:** keeps state/auth handling in one place and made it possible to deliver the full scope in one pass instead of duplicating nav/layout per page.
+
+## Toggling `<form hidden>` inside a card that also styles `form` by element+class
+If a stylesheet has a rule like `.card form { display: flex; }`, that author rule overrides the browser's built-in `[hidden] { display: none }` UA style (author styles win over UA styles regardless of selector specificity), so toggling the `hidden` attribute silently fails to hide the element — both forms render stacked.
+
+**How to apply:** whenever you rely on the `hidden` attribute for an element that also has an element+class (or class) display rule in your CSS, add an explicit `selector[hidden] { display: none !important; }` override, or hide via a class toggle instead of the bare attribute.
