@@ -215,7 +215,7 @@
 
     <button class="menu-toggle" id="menuToggle" aria-label="فتح القائمة" aria-expanded="false">
       <span class="menu-lines" aria-hidden="true"><i></i><i></i><i></i></span>
-      <span class="mobile-login-text">تسجيل الدخول</span>
+      <span class="mobile-login-text">تسجيل الدخول / إنشاء حساب</span>
     </button>
 
     <nav class="main-nav" id="mainNav">
@@ -508,7 +508,7 @@
       }
 
       function updateMobileLoginLabel() {
-        mobileLoginButton?.setAttribute("aria-label", mobileQuery.matches ? "تسجيل الدخول" : "فتح القائمة");
+        mobileLoginButton?.setAttribute("aria-label", mobileQuery.matches ? "تسجيل الدخول أو إنشاء حساب" : "فتح القائمة");
       }
 
       updateMobileLoginLabel();
