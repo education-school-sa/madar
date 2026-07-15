@@ -22,7 +22,7 @@
       --mouse-x: 50%;
       --mouse-y: 20%;
       position: absolute;
-      top: calc(100% + 36px);
+      top: calc(100% + 7px);
       right: 0;
       width: 320px;
       padding: 28px 20px;
@@ -169,13 +169,16 @@
       to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
-    @media (max-width: 680px) {
-      .login-menu-wrap { width: 100%; }
-      .login-menu-wrap .login-button { width: 100%; }
+    @media (max-width: 820px) {
+      .login-menu-wrap {
+        position: absolute;
+        width: 0;
+        height: 0;
+      }
 
       .login-options {
         position: fixed;
-        top: 102px;
+        top: 88px;
         right: 12px;
         left: 12px;
         width: auto;
@@ -211,7 +214,8 @@
     </a>
 
     <button class="menu-toggle" id="menuToggle" aria-label="فتح القائمة" aria-expanded="false">
-      <span></span><span></span><span></span>
+      <span class="menu-lines" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="mobile-login-text">تسجيل الدخول</span>
     </button>
 
     <nav class="main-nav" id="mainNav">
@@ -484,6 +488,8 @@
       const loginButton = document.getElementById("loginButton");
       const loginOptions = document.getElementById("loginOptions");
       const loginMenuWrap = document.querySelector(".login-menu-wrap");
+      const mobileLoginButton = document.getElementById("menuToggle");
+      const mobileQuery = window.matchMedia("(max-width: 820px)");
       let closeTimer;
 
       if (!loginButton || !loginOptions) return;
@@ -491,13 +497,34 @@
       function closeLoginOptions() {
         loginOptions.hidden = true;
         loginButton.setAttribute("aria-expanded", "false");
+        if (mobileQuery.matches) mobileLoginButton?.setAttribute("aria-expanded", "false");
       }
 
       function openLoginOptions() {
         clearTimeout(closeTimer);
         loginOptions.hidden = false;
         loginButton.setAttribute("aria-expanded", "true");
+        if (mobileQuery.matches) mobileLoginButton?.setAttribute("aria-expanded", "true");
       }
+
+      function updateMobileLoginLabel() {
+        mobileLoginButton?.setAttribute("aria-label", mobileQuery.matches ? "تسجيل الدخول" : "فتح القائمة");
+      }
+
+      updateMobileLoginLabel();
+      mobileQuery.addEventListener?.("change", updateMobileLoginLabel);
+
+      mobileLoginButton?.addEventListener(
+        "click",
+        (event) => {
+          if (!mobileQuery.matches) return;
+          event.preventDefault();
+          event.stopImmediatePropagation();
+          if (loginOptions.hidden) openLoginOptions();
+          else closeLoginOptions();
+        },
+        true
+      );
 
       loginMenuWrap?.addEventListener("mouseenter", openLoginOptions);
       loginMenuWrap?.addEventListener("mouseleave", () => {
