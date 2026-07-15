@@ -40,7 +40,13 @@ document.querySelectorAll("[data-section]").forEach((button) => {
   });
 });
 
-document.getElementById("profileButton").addEventListener("click", () => {
+const profileButton = document.getElementById("profileButton");
+
+profileButton.addEventListener("click", () => {
+  profileButton.classList.remove("is-pressed");
+  void profileButton.offsetWidth;
+  profileButton.classList.add("is-pressed");
+  window.setTimeout(() => profileButton.classList.remove("is-pressed"), 520);
   showToast("سيعرض ملفكِ الدراسي درجاتكِ وتقدّمكِ وشاراتكِ بعد ربط قاعدة البيانات.");
 });
 

@@ -202,7 +202,7 @@ main {
 .profile-button {
   position: relative;
   isolation: isolate;
-  width: min(410px, 100%);
+  width: min(330px, 100%);
   min-width: 0;
   margin-top: 18px;
   padding: 0;
@@ -242,6 +242,14 @@ main {
   transform: scale(1.08);
 }
 
+.profile-button:active::before,
+.profile-button.is-pressed::before {
+  background: radial-gradient(circle, rgba(255,255,255,1) 0 35%, rgba(255,255,255,.88) 48%, transparent 76%);
+  filter: blur(14px);
+  opacity: 1;
+  transform: scale(1.14);
+}
+
 .profile-button img {
   display: block;
   width: 100%;
@@ -258,6 +266,45 @@ main {
     drop-shadow(0 0 8px rgba(255,255,255,.95))
     drop-shadow(0 0 16px rgba(104,226,255,.85))
     drop-shadow(0 0 25px rgba(178,91,255,.68));
+}
+
+.profile-button:active img,
+.profile-button.is-pressed img {
+  filter:
+    brightness(1.1)
+    drop-shadow(0 0 8px #fff)
+    drop-shadow(0 0 17px rgba(255,255,255,1))
+    drop-shadow(0 0 30px rgba(255,255,255,.96));
+}
+
+.profile-button__label {
+  position: absolute;
+  z-index: 2;
+  top: 25%;
+  left: 20.5%;
+  width: 43%;
+  height: 40%;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  color: #35106c;
+  direction: rtl;
+  font-size: clamp(23px, 2vw, 28px);
+  font-weight: 900;
+  line-height: 1;
+  white-space: nowrap;
+  background: linear-gradient(120deg, rgba(235,244,255,.98), rgba(245,240,247,.97));
+  -webkit-clip-path: polygon(5% 10%, 97% 0, 100% 82%, 93% 100%, 4% 96%, 0 18%);
+  clip-path: polygon(5% 10%, 97% 0, 100% 82%, 93% 100%, 4% 96%, 0 18%);
+  text-shadow: 0 2px 7px rgba(255,255,255,.9);
+  pointer-events: none;
+}
+
+.profile-button:active .profile-button__label,
+.profile-button.is-pressed .profile-button__label {
+  color: #21084c;
+  background: rgba(255,255,255,.99);
+  text-shadow: 0 0 7px #fff, 0 0 15px #fff;
 }
 
 .profile-button:focus-visible {
@@ -626,7 +673,7 @@ main {
   }
 
   .profile-button {
-    width: min(92vw, 340px);
+    width: min(82vw, 285px);
     min-width: 0;
     border-radius: 0;
   }
