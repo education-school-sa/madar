@@ -200,54 +200,30 @@ main {
 }
 
 .profile-button {
-  min-width: 275px;
+  width: min(410px, 100%);
+  min-width: 0;
   margin-top: 18px;
-  padding: 10px 16px;
-  display: inline-grid;
-  grid-template-columns: 52px 1fr auto;
-  align-items: center;
-  gap: 10px;
-  border: 1px solid rgba(84,51,145,.16);
-  border-radius: 19px;
-  color: var(--purple-900);
-  background: linear-gradient(135deg, rgba(230,239,250,.95), rgba(255,245,232,.92));
-  box-shadow: 0 12px 28px rgba(67,42,110,.10);
+  padding: 0;
+  display: inline-block;
+  overflow: hidden;
+  border: 0;
+  border-radius: 21px;
+  background: transparent;
+  box-shadow: 0 14px 32px rgba(52,45,79,.20);
   cursor: pointer;
   transition: transform .2s ease, box-shadow .2s ease;
+  line-height: 0;
 }
 
 .profile-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 17px 34px rgba(67,42,110,.15);
+  transform: translateY(-3px) scale(1.01);
+  box-shadow: 0 18px 38px rgba(52,45,79,.25);
 }
 
-.profile-avatar {
-  width: 48px;
-  height: 48px;
-  display: grid;
-  place-items: center;
-  border-radius: 14px;
-  background: rgba(255,255,255,.72);
-  font-size: 29px;
-}
-
-.profile-button span:nth-child(2) {
-  text-align: right;
-}
-
-.profile-button small,
-.profile-button strong {
+.profile-button img {
   display: block;
-}
-
-.profile-button small {
-  margin-bottom: 2px;
-  color: var(--muted);
-  font-size: 11px;
-}
-
-.profile-button strong {
-  font-size: 19px;
+  width: 100%;
+  height: auto;
 }
 
 .learning-grid {
@@ -612,7 +588,8 @@ main {
   }
 
   .profile-button {
-    width: min(100%, 360px);
+    width: min(92vw, 340px);
     min-width: 0;
+    border-radius: 16px;
   }
 }
