@@ -82,6 +82,14 @@
   color: #686478;
 }
 
+.password-note {
+  display: block;
+  margin: 7px 4px 0;
+  color: #736b80;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
 .daughter-emails {
   margin-bottom: 14px;
   padding: 13px;
