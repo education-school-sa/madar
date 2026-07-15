@@ -251,12 +251,12 @@ main {
 }
 
 .learning-grid {
-  width: min(1180px, 100%);
+  width: min(960px, 100%);
   margin-inline: auto;
   padding-bottom: 50px;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
+  gap: 20px 24px;
   direction: rtl;
 }
 
@@ -264,15 +264,15 @@ main {
   --card-bg: #eef6ff;
   --card-accent: #306f9f;
   position: relative;
-  min-height: 285px;
+  min-height: 245px;
   overflow: hidden;
-  padding: 16px 12px 14px;
+  padding: 12px 10px 12px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   border: 1px solid rgba(255,255,255,.78);
-  border-radius: 24px;
+  border-radius: 21px;
   background:
     radial-gradient(circle at 78% 10%, rgba(255,255,255,.78), transparent 32%),
     var(--card-bg);
@@ -307,53 +307,53 @@ main {
 }
 
 .card-icon {
-  width: 96px;
-  height: 96px;
-  min-height: 96px;
-  flex: 0 0 96px;
+  width: 82px;
+  height: 82px;
+  min-height: 82px;
+  flex: 0 0 82px;
   margin: 2px auto 1px;
   display: block;
   overflow: hidden;
-  border-radius: 20px;
+  border-radius: 17px;
   background-image: url("learning-icons-reference.webp");
   background-repeat: no-repeat;
-  background-size: 913px 304px;
+  background-size: 819px 273px;
   filter: drop-shadow(0 10px 10px rgba(54,44,77,.13));
 }
 
-.icon-tests { background-position: -790px -104px; }
-.icon-games { background-position: -624px -108px; }
-.icon-practice { background-position: -493px -105px; }
-.icon-videos { background-position: -370px -108px; }
-.icon-flipped { background-position: -242px -107px; }
-.icon-more { background-position: -88px -105px; }
+.icon-tests { background-position: -711px -95px; }
+.icon-games { background-position: -562px -99px; }
+.icon-practice { background-position: -444px -97px; }
+.icon-videos { background-position: -334px -99px; }
+.icon-flipped { background-position: -220px -98px; }
+.icon-more { background-position: -81px -97px; }
 
 .learning-card h2 {
   margin: 2px 0 5px;
   color: var(--purple-950);
-  font-size: clamp(18px, 1.45vw, 24px);
+  font-size: clamp(17px, 1.3vw, 22px);
   line-height: 1.2;
 }
 
 .learning-card p {
-  min-height: 58px;
-  margin: 0 0 9px;
+  min-height: 50px;
+  margin: 0 0 7px;
   color: #3f3948;
-  font-size: 12.5px;
+  font-size: 12px;
   line-height: 1.55;
 }
 
 .learning-card button {
   width: auto;
-  min-height: 35px;
+  min-height: 31px;
   max-width: 100%;
   margin-top: auto;
-  padding: 6px 10px;
+  padding: 5px 9px;
   border: 1px solid color-mix(in srgb, var(--card-accent) 68%, white);
   border-radius: 11px;
   color: var(--purple-950);
   background: rgba(255,255,255,.52);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 900;
   cursor: pointer;
   transition: background .2s ease, transform .2s ease;
@@ -450,7 +450,7 @@ main {
   }
 
   .learning-card {
-    min-height: 270px;
+    min-height: 238px;
   }
 }
 
@@ -492,11 +492,11 @@ main {
 
   .learning-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 10px;
+    gap: 14px;
   }
 
   .learning-card {
-    min-height: 230px;
+    min-height: 215px;
     padding: 11px 8px 11px;
     border-radius: 20px;
   }
@@ -559,13 +559,13 @@ main {
 
   .learning-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 6px;
+    gap: 8px;
   }
 
   .learning-card {
     width: auto;
-    min-height: 194px;
-    padding: 7px 4px 8px;
+    min-height: 174px;
+    padding: 6px 3px 7px;
     margin-inline: auto;
     border-radius: 16px;
   }
@@ -577,37 +577,37 @@ main {
   }
 
   .card-icon {
-    width: 70px;
-    height: 70px;
-    min-height: 70px;
-    flex-basis: 70px;
-    border-radius: 14px;
-    background-size: 700px 233px;
+    width: 60px;
+    height: 60px;
+    min-height: 60px;
+    flex-basis: 60px;
+    border-radius: 12px;
+    background-size: 600px 200px;
   }
 
-  .icon-tests { background-position: -606px -80px; }
-  .icon-games { background-position: -479px -83px; }
-  .icon-practice { background-position: -378px -81px; }
-  .icon-videos { background-position: -284px -83px; }
-  .icon-flipped { background-position: -186px -82px; }
-  .icon-more { background-position: -67px -81px; }
+  .icon-tests { background-position: -519px -69px; }
+  .icon-games { background-position: -411px -71px; }
+  .icon-practice { background-position: -324px -69px; }
+  .icon-videos { background-position: -243px -71px; }
+  .icon-flipped { background-position: -159px -70px; }
+  .icon-more { background-position: -57px -69px; }
 
   .learning-card h2 {
-    min-height: 31px;
+    min-height: 28px;
     margin: 2px 0 4px;
     display: grid;
     place-items: center;
-    font-size: 13px;
+    font-size: 12.5px;
     line-height: 1.18;
   }
 
   .learning-card p { display: none; }
 
   .learning-card button {
-    min-height: 29px;
-    padding: 4px 5px;
+    min-height: 26px;
+    padding: 3px 4px;
     border-radius: 8px;
-    font-size: 8.8px;
+    font-size: 8.2px;
     line-height: 1.15;
   }
 
