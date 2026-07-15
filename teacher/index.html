@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>لوحة المعلمة | مدار</title>
+  <link rel="stylesheet" href="dashboard.css?v=1" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-brand">مدار<i>✦</i> <span style="font-size:.7rem;font-weight:500;opacity:.7">لوحة المعلمة</span></div>
+
+      <button class="nav-item active" data-route="home"><span class="ic">🏠</span> الرئيسية</button>
+      <button class="nav-item" data-route="profile"><span class="ic">👤</span> معلوماتي</button>
+
+      <div class="nav-group-label">الطالبات</div>
+      <button class="nav-item" data-route="students"><span class="ic">🎓</span> أسماء الطالبات</button>
+      <button class="nav-item" data-route="students-manage"><span class="ic">🛠️</span> إدارة الطالبات</button>
+
+      <div class="nav-group-label">الاختبارات</div>
+      <button class="nav-item" data-route="tests-pre"><span class="ic">📝</span> تشخيصي قبلي</button>
+      <button class="nav-item" data-route="tests-post"><span class="ic">📋</span> تشخيصي بعدي</button>
+      <button class="nav-item" data-route="tests-quiz"><span class="ic">✏️</span> اختبارات قصيرة</button>
+
+      <div class="nav-group-label">تحليل النتائج</div>
+      <button class="nav-item" data-route="analysis-student"><span class="ic">📈</span> تحليل لكل طالبة</button>
+      <button class="nav-item" data-route="analysis-class"><span class="ic">📊</span> تحليل الفصل العام</button>
+      <button class="nav-item" data-route="analysis-skill"><span class="ic">🧩</span> تحليل كل مهارة</button>
+
+      <div class="nav-group-label">أخرى</div>
+      <button class="nav-item" data-route="reports"><span class="ic">🖨️</span> التقارير</button>
+      <button class="nav-item" data-route="notifications"><span class="ic">🔔</span> الإشعارات</button>
+      <button class="nav-item" data-route="classes"><span class="ic">🏷️</span> الفصول والمجموعات</button>
+      <button class="nav-item" data-route="activity"><span class="ic">🕓</span> سجل الأنشطة</button>
+      <button class="nav-item" data-route="settings"><span class="ic">⚙️</span> الإعدادات</button>
+      <button class="nav-item" id="logoutBtn"><span class="ic">🚪</span> تسجيل الخروج</button>
+    </aside>
+
+    <div class="main-area">
+      <header class="topbar">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <button class="menu-toggle" id="menuToggle">☰</button>
+          <h2 id="pageTitle">الرئيسية</h2>
+        </div>
+        <div class="topbar-right">
+          <button class="bell-btn" id="bellBtn">🔔<span class="bell-dot" id="bellDot" hidden></span></button>
+          <div class="topbar-teacher">
+            <div class="avatar-circle" id="avatarCircle">م</div>
+            <span id="teacherNameLabel">—</span>
+          </div>
+        </div>
+      </header>
+      <main class="content" id="content"></main>
+    </div>
+  </div>
+
+  <div id="modalRoot"></div>
+  <div id="toastRoot"></div>
+
+  <script src="dashboard.js?v=1" type="module"></script>
+</body>
+</html>

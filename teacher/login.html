@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>تسجيل دخول المعلمة | مدار</title>
+  <link rel="stylesheet" href="dashboard.css?v=1" />
+</head>
+<body class="login-body">
+  <div class="login-card">
+    <a href="../index.html" class="login-brand">مدار<i>✦</i></a>
+    <h1>لوحة المعلمة</h1>
+    <p class="login-sub">سجّلي دخولكِ لمتابعة طالباتكِ واختباراتهنّ</p>
+
+    <form id="loginForm" novalidate>
+      <label>البريد الإلكتروني
+        <input type="email" id="email" required autocomplete="username" placeholder="teacher@madar.sa" />
+      </label>
+      <label>كلمة المرور
+        <input type="password" id="password" required autocomplete="current-password" placeholder="••••••••" />
+      </label>
+      <div id="loginError" class="form-error" hidden></div>
+      <button type="submit" class="btn btn-primary btn-block">تسجيل الدخول</button>
+    </form>
+
+    <p class="login-hint">بيانات تجريبية: teacher@madar.sa / Teacher@2026</p>
+  </div>
+  <script src="login.js?v=1" type="module"></script>
+</body>
+</html>

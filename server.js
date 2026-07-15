@@ -1,56 +1,64 @@
-// Minimal static file server for the "مدار" static site.
-// Serves files from the project root on port 5000.
-const http = require("http");
-const fs = require("fs");
+// Static site server for "مدار" + backend API and dashboard for the teacher ("لوحة المعلمة").
+const express = require("express");
 const path = require("path");
+const session = require("express-session");
+const pgSession = require("connect-pg-simple")(session);
+const pool = require("./backend/db");
+const { requireAuth } = require("./backend/auth");
 
+const authRoutes = require("./backend/routes/auth");
+const dashboardRoutes = require("./backend/routes/dashboard");
+const studentsRoutes = require("./backend/routes/students");
+const testsRoutes = require("./backend/routes/tests");
+const analysisRoutes = require("./backend/routes/analysis");
+const miscRoutes = require("./backend/routes/misc");
+const reportsRoutes = require("./backend/routes/reports");
+
+const app = express();
 const PORT = 5000;
-const ROOT = __dirname;
 
-const MIME = {
-  ".html": "text/html; charset=utf-8",
-  ".css": "text/css; charset=utf-8",
-  ".js": "application/javascript; charset=utf-8",
-  ".json": "application/json; charset=utf-8",
-  ".png": "image/png",
-  ".jpg": "image/jpeg",
-  ".jpeg": "image/jpeg",
-  ".webp": "image/webp",
-  ".gif": "image/gif",
-  ".svg": "image/svg+xml",
-  ".ico": "image/x-icon",
-  ".woff": "font/woff",
-  ".woff2": "font/woff2",
-};
+app.set("trust proxy", 1);
+app.use(express.json());
 
-const server = http.createServer((req, res) => {
-  let urlPath = decodeURIComponent(req.url.split("?")[0]);
-  if (urlPath === "/") urlPath = "/index.html";
+app.use(
+  session({
+    store: new pgSession({ pool, tableName: "session", createTableIfMissing: true }),
+    secret: process.env.SESSION_SECRET || "madar-dev-secret-change-me",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 8 * 60 * 60 * 1000, // 8 hours
+      httpOnly: true,
+      sameSite: "lax",
+    },
+  })
+);
 
-  const filePath = path.join(ROOT, urlPath);
+// --- Teacher dashboard API (all protected except /login) ---
+app.use("/api/teacher", authRoutes);
+app.use("/api/teacher/dashboard", requireAuth, dashboardRoutes);
+app.use("/api/teacher/students", requireAuth, studentsRoutes);
+app.use("/api/teacher/tests", requireAuth, testsRoutes);
+app.use("/api/teacher/analysis", requireAuth, analysisRoutes);
+app.use("/api/teacher/data", requireAuth, miscRoutes);
+app.use("/api/teacher/reports", requireAuth, reportsRoutes);
 
-  // Prevent path traversal outside project root.
-  if (!filePath.startsWith(ROOT)) {
-    res.writeHead(403);
-    res.end("Forbidden");
-    return;
-  }
+// --- Static site (existing pages) + teacher dashboard frontend ---
+app.use("/teacher", express.static(path.join(__dirname, "teacher")));
+app.use(express.static(__dirname));
 
-  fs.readFile(filePath, (err, data) => {
-    if (err) {
-      res.writeHead(404, { "Content-Type": "text/html; charset=utf-8" });
-      res.end("<h1>404 - الصفحة غير موجودة</h1>");
-      return;
-    }
-    const ext = path.extname(filePath).toLowerCase();
-    res.writeHead(200, {
-      "Content-Type": MIME[ext] || "application/octet-stream",
-      "Cache-Control": "no-cache",
-    });
-    res.end(data);
-  });
+app.get("/teacher", (req, res) => {
+  res.sendFile(path.join(__dirname, "teacher", "login.html"));
 });
 
-server.listen(PORT, "0.0.0.0", () => {
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "index.html"));
+});
+
+app.use((req, res) => {
+  res.status(404).send("<h1>404 - الصفحة غير موجودة</h1>");
+});
+
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server running at http://0.0.0.0:${PORT}/`);
 });
