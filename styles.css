@@ -2550,7 +2550,7 @@ body {
   }
 }
 
-/* الجوال: نفس واجهة الكمبيوتر الأصلية، مع اقتصاص مركزي مناسب للشاشة */
+/* الجوال: محتوى متوسّط ثم صورة الطالبة أسفله */
 @media (max-width: 820px) {
   .menu-toggle {
     min-width: 168px;
@@ -2565,26 +2565,154 @@ body {
 
   .hero-card {
     position: relative;
-    display: block !important;
-    height: clamp(650px, calc(100svh - 104px), 900px);
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    height: auto;
     min-height: 0 !important;
-    padding: 0 !important;
+    padding: 26px 16px 0 !important;
     overflow: hidden;
   }
 
   .hero-final-art {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    display: block !important;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: 50% top;
+    display: none !important;
   }
 
-  .hero-card > :not(.hero-final-art) {
+  .hero-card::after,
+  .hero-card > .hero-math-symbol,
+  .right-visuals {
     display: none !important;
+  }
+
+  .hero-copy {
+    position: relative !important;
+    inset: auto !important;
+    order: 1;
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 18px 0 12px !important;
+    transform: none !important;
+    direction: rtl;
+    text-align: center;
+  }
+
+  .vision-2030 {
+    width: clamp(145px, 29vw, 180px);
+    margin: 0 auto 12px;
+  }
+
+  .madar-title-wrap {
+    width: 100%;
+    min-height: auto;
+    margin: 0 auto;
+  }
+
+  .madar-title-wrap::before,
+  .madar-title-wrap::after {
+    display: none !important;
+  }
+
+  .hero-copy h1 {
+    margin: 6px 0 10px;
+    font-size: clamp(72px, 20vw, 98px);
+    line-height: 1;
+    letter-spacing: -5px;
+  }
+
+  .hero-copy h2 {
+    width: 100%;
+    margin: 8px 0 5px;
+    font-size: clamp(24px, 6.5vw, 34px);
+    line-height: 1.35;
+  }
+
+  .slogan {
+    width: 100%;
+    margin: 12px 0;
+    gap: 8px;
+    font-size: clamp(17px, 4.8vw, 22px);
+  }
+
+  .hero-description {
+    width: min(100%, 560px);
+    margin-inline: auto;
+    padding-inline: 2px;
+    font-size: clamp(15px, 4.1vw, 18px);
+    line-height: 1.9;
+    text-align: center;
+  }
+
+  .hero-actions {
+    position: static !important;
+    display: flex !important;
+    flex-direction: row;
+    width: min(100%, 520px) !important;
+    height: auto !important;
+    margin: 22px auto 0 !important;
+    gap: 10px !important;
+    opacity: 1 !important;
+    pointer-events: auto;
+  }
+
+  .hero-actions > * {
+    flex: 1 1 0;
+    width: auto !important;
+    min-width: 0 !important;
+    min-height: 56px;
+    padding-inline: 9px;
+    font-size: clamp(13px, 3.6vw, 16px);
+  }
+
+  .trust-row {
+    width: 100%;
+    margin-top: 18px;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .student-side {
+    order: 2;
+    display: flex !important;
+    width: 100%;
+    min-height: 0 !important;
+    margin: 22px 0 0;
+    overflow: hidden;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  .student-side::before,
+  .student-side::after {
+    display: none !important;
+  }
+
+  .student-frame {
+    width: min(100%, 520px);
+    max-width: none;
+    height: auto !important;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 26px 26px 0 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .student-frame::after {
+    display: none !important;
+  }
+
+  .student-image {
+    display: block;
+    width: 100%;
+    height: auto !important;
+    object-fit: contain;
+    object-position: center top;
+    transform: none !important;
+    filter: none;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
   }
 }
 
