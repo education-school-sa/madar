@@ -29,12 +29,14 @@ const username = document.getElementById("username");
 const password = document.getElementById("password");
 const passwordToggle = document.getElementById("passwordToggle");
 const formMessage = document.getElementById("formMessage");
+const createAccount = document.getElementById("createAccount");
 
 roleTitle.textContent = currentRole.title;
 accountQuestion.textContent = currentRole.question;
 document.title = `${currentRole.title} | مدار`;
 document.body.dataset.role = role;
 localStorage.setItem("madar-login-role", role);
+createAccount.href = `register.html?role=${encodeURIComponent(role)}`;
 
 passwordToggle.addEventListener("click", () => {
   const shouldShow = password.type === "password";
@@ -55,12 +57,6 @@ loginForm.addEventListener("submit", (event) => {
 
   formMessage.style.color = "#47218c";
   formMessage.textContent = "واجهة الدخول جاهزة، وسيتم ربطها بقاعدة البيانات في الخطوة التالية.";
-});
-
-document.getElementById("createAccount").addEventListener("click", (event) => {
-  event.preventDefault();
-  formMessage.style.color = "#47218c";
-  formMessage.textContent = "سيتم إضافة نموذج إنشاء الحساب وربطه بقاعدة البيانات في الخطوة التالية.";
 });
 
 document.getElementById("helpButton").addEventListener("click", () => {
