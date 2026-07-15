@@ -38,7 +38,7 @@
         0 22px 55px rgba(39, 43, 82, 0.26);
       backdrop-filter: blur(18px) saturate(125%);
       -webkit-backdrop-filter: blur(18px) saturate(125%);
-      animation: showLoginOptions 0.32s cubic-bezier(.2,.8,.2,1);
+      animation: none;
     }
 
     .login-options::before {
@@ -525,6 +525,10 @@
         },
         true
       );
+
+      loginButton.addEventListener("pointerenter", () => {
+        if (!mobileQuery.matches) openLoginOptions();
+      });
 
       loginMenuWrap?.addEventListener("mouseenter", openLoginOptions);
       loginMenuWrap?.addEventListener("mouseleave", () => {
