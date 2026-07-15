@@ -80,10 +80,12 @@ document.addEventListener("keydown", (event) => {
 
 document.querySelectorAll(".stage-hotspot, .mobile-stage-card").forEach((button) => {
   button.addEventListener("click", () => {
-    showModal(
-      button.dataset.stage,
-      `هذه بطاقة ${button.dataset.stage}. سنربطها لاحقًا بصفحتها الخاصة دون تغيير شكل التصميم.`,
-      "📚"
-    );
+    const stageRoutes = {
+      "المرحلة الابتدائية": "primary",
+      "المرحلة المتوسطة": "middle",
+      "المرحلة الثانوية": "secondary",
+    };
+    const stage = stageRoutes[button.dataset.stage] || "primary";
+    window.location.href = `stage.html?stage=${encodeURIComponent(stage)}`;
   });
 });
