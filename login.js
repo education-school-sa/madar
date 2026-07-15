@@ -53,18 +53,18 @@ loginForm.addEventListener("submit", (event) => {
     return;
   }
 
-  formMessage.style.color = "#e9ddff";
+  formMessage.style.color = "#47218c";
   formMessage.textContent = "واجهة الدخول جاهزة، وسيتم ربطها بقاعدة البيانات في الخطوة التالية.";
 });
 
 document.getElementById("createAccount").addEventListener("click", (event) => {
   event.preventDefault();
-  formMessage.style.color = "#e9ddff";
+  formMessage.style.color = "#47218c";
   formMessage.textContent = "سيتم إضافة نموذج إنشاء الحساب وربطه بقاعدة البيانات في الخطوة التالية.";
 });
 
 document.getElementById("helpButton").addEventListener("click", () => {
-  formMessage.style.color = "#e9ddff";
+  formMessage.style.color = "#47218c";
   formMessage.textContent = "للمساعدة، تواصلي مع إدارة منصة مدار.";
   formMessage.scrollIntoView({ behavior: "smooth", block: "center" });
 });
