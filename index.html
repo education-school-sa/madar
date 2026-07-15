@@ -483,6 +483,8 @@
     (() => {
       const loginButton = document.getElementById("loginButton");
       const loginOptions = document.getElementById("loginOptions");
+      const loginMenuWrap = document.querySelector(".login-menu-wrap");
+      let closeTimer;
 
       if (!loginButton || !loginOptions) return;
 
@@ -491,6 +493,18 @@
         loginButton.setAttribute("aria-expanded", "false");
       }
 
+      function openLoginOptions() {
+        clearTimeout(closeTimer);
+        loginOptions.hidden = false;
+        loginButton.setAttribute("aria-expanded", "true");
+      }
+
+      loginMenuWrap?.addEventListener("mouseenter", openLoginOptions);
+      loginMenuWrap?.addEventListener("mouseleave", () => {
+        clearTimeout(closeTimer);
+        closeTimer = setTimeout(closeLoginOptions, 220);
+      });
+
       loginButton.addEventListener(
         "click",
         (event) => {
@@ -498,8 +512,8 @@
           event.stopImmediatePropagation();
 
           const shouldOpen = loginOptions.hidden;
-          loginOptions.hidden = !shouldOpen;
-          loginButton.setAttribute("aria-expanded", String(shouldOpen));
+          if (shouldOpen) openLoginOptions();
+          else closeLoginOptions();
         },
         true
       );
