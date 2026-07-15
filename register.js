@@ -179,5 +179,7 @@ registerForm.addEventListener("submit", (event) => {
     return;
   }
 
+  const firstName = document.getElementById("firstName").value.trim();
+  localStorage.setItem("madar-user-name", firstName);
   registerMessage.textContent = "الصفحة جاهزة، وسيتم تفعيل إرسال الطلب بعد ربطها بقاعدة البيانات ولوحة الموافقات.";
 });
