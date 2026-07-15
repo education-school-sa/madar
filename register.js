@@ -2,33 +2,39 @@ const registrationRoles = {
   student: {
     title: "إنشاء حساب الطالبة",
     intro: "أدخلي بياناتك لإرسال طلب الانضمام إلى منصة مدار.",
-    nameLabel: "الاسم الثلاثي",
-    namePlaceholder: "الاسم الأول واسم الأب واسم العائلة",
-    nameWords: 3,
+    nameFields: [
+      { id: "firstName", label: "الاسم الأول" },
+      { id: "fatherName", label: "اسم الأب" },
+      { id: "lastName", label: "الاسم الأخير" },
+    ],
     needsEmail: true,
   },
   teacher: {
     title: "إنشاء حساب المعلم",
     intro: "أدخل بياناتك لإرسال طلب الانضمام إلى منصة مدار.",
-    nameLabel: "الاسم الثلاثي",
-    namePlaceholder: "الاسم الأول واسم الأب واسم العائلة",
-    nameWords: 3,
+    nameFields: [
+      { id: "firstName", label: "الاسم الأول" },
+      { id: "fatherName", label: "اسم الأب" },
+      { id: "lastName", label: "الاسم الأخير" },
+    ],
     needsEmail: true,
   },
   staff: {
     title: "إنشاء حساب الكادر الإداري",
     intro: "أدخل الاسم الثنائي وكلمة المرور لإرسال طلب الانضمام.",
-    nameLabel: "الاسم الثنائي",
-    namePlaceholder: "الاسم الأول واسم العائلة",
-    nameWords: 2,
+    nameFields: [
+      { id: "firstName", label: "الاسم الأول" },
+      { id: "lastName", label: "الاسم الأخير" },
+    ],
     needsEmail: false,
   },
   parent: {
     title: "إنشاء حساب ولي الأمر",
     intro: "أدخل بياناتك ثم أضف إيميل منصة مدرستي لكل ابنة.",
-    nameLabel: "الاسم الأول والأخير",
-    namePlaceholder: "الاسم الأول واسم العائلة",
-    nameWords: 2,
+    nameFields: [
+      { id: "firstName", label: "الاسم الأول" },
+      { id: "lastName", label: "الاسم الأخير" },
+    ],
     isParent: true,
   },
 };
@@ -63,13 +69,20 @@ function fieldTemplate({ id, label, placeholder, type = "text", direction = "rtl
   `;
 }
 
+const nameGridClass = settings.nameFields.length === 3 ? "name-grid-three" : "name-grid-two";
 dynamicFields.insertAdjacentHTML(
   "beforeend",
-  fieldTemplate({
-    id: "fullName",
-    label: settings.nameLabel,
-    placeholder: settings.namePlaceholder,
-  })
+  `<div class="name-grid ${nameGridClass}">
+    ${settings.nameFields
+      .map((field) =>
+        fieldTemplate({
+          id: field.id,
+          label: field.label,
+          placeholder: field.label,
+        })
+      )
+      .join("")}
+  </div>`
 );
 
 if (settings.needsEmail) {
@@ -90,9 +103,9 @@ if (settings.isParent) {
     "beforeend",
     `
       <div class="daughter-emails">
-        <p class="daughter-emails-title">إيميلات منصة مدرستي للبنات</p>
+        <p class="daughter-emails-title">إيميلات منصة مدرستي للطالبات</p>
         <div id="daughterEmailList"></div>
-        <button class="add-daughter" id="addDaughterEmail" type="button">+ إضافة إيميل ابنة أخرى</button>
+        <button class="add-daughter" id="addDaughterEmail" type="button">+ إضافة إيميل طالبة أخرى</button>
       </div>
     `
   );
@@ -103,7 +116,7 @@ function addDaughterEmail() {
   const row = document.createElement("div");
   row.className = "daughter-email-row";
   row.innerHTML = `
-    <input type="email" name="daughterEmails" placeholder="إيميل منصة مدرستي" aria-label="إيميل منصة مدرستي للابنة" required />
+    <input type="email" name="daughterEmails" placeholder="إيميل منصة مدرستي للطالبة" aria-label="إيميل منصة مدرستي للطالبة" required />
     <button class="remove-daughter" type="button" aria-label="حذف هذا الإيميل">×</button>
   `;
   row.querySelector(".remove-daughter").addEventListener("click", () => {
@@ -132,10 +145,12 @@ registerForm.addEventListener("submit", (event) => {
   event.preventDefault();
   registerMessage.textContent = "";
 
-  const fullName = document.getElementById("fullName").value.trim();
-  if (fullName.split(/\s+/).filter(Boolean).length < settings.nameWords) {
-    registerMessage.textContent = `فضلاً أدخل ${settings.nameLabel} بشكل صحيح.`;
-    document.getElementById("fullName").focus();
+  const missingNameField = settings.nameFields.find((field) => {
+    return !document.getElementById(field.id).value.trim();
+  });
+  if (missingNameField) {
+    registerMessage.textContent = `فضلاً أدخل ${missingNameField.label}.`;
+    document.getElementById(missingNameField.id).focus();
     return;
   }
 
@@ -152,7 +167,7 @@ registerForm.addEventListener("submit", (event) => {
     const daughterEmails = [...document.querySelectorAll('[name="daughterEmails"]')];
     const invalidEmail = daughterEmails.find((input) => !validEmail(input.value.trim()));
     if (invalidEmail) {
-      registerMessage.textContent = "فضلاً أدخل إيميلات منصة مدرستي للبنات بشكل صحيح.";
+      registerMessage.textContent = "فضلاً أدخل إيميلات منصة مدرستي للطالبات بشكل صحيح.";
       invalidEmail.focus();
       return;
     }
