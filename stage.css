@@ -200,30 +200,68 @@ main {
 }
 
 .profile-button {
+  position: relative;
+  isolation: isolate;
   width: min(410px, 100%);
   min-width: 0;
   margin-top: 18px;
   padding: 0;
   display: inline-block;
-  overflow: hidden;
+  overflow: visible;
   border: 0;
-  border-radius: 21px;
+  border-radius: 0;
   background: transparent;
-  box-shadow: 0 14px 32px rgba(52,45,79,.20);
+  box-shadow: none;
   cursor: pointer;
-  transition: transform .2s ease, box-shadow .2s ease;
+  transition: transform .22s ease;
   line-height: 0;
 }
 
+.profile-button::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 12% 8%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(123,236,255,.72), rgba(191,121,255,.46) 44%, transparent 74%);
+  filter: blur(20px);
+  opacity: 0;
+  transform: scale(.92);
+  transition: opacity .22s ease, transform .22s ease;
+  pointer-events: none;
+}
+
 .profile-button:hover {
-  transform: translateY(-3px) scale(1.01);
-  box-shadow: 0 18px 38px rgba(52,45,79,.25);
+  transform: translateY(-3px) scale(1.015);
+  box-shadow: none;
+}
+
+.profile-button:hover::before,
+.profile-button:focus-visible::before {
+  opacity: 1;
+  transform: scale(1.08);
 }
 
 .profile-button img {
   display: block;
   width: 100%;
   height: auto;
+  -webkit-clip-path: polygon(25% 9%, 69% 9%, 73% 2%, 81% 17%, 84% 48%, 81% 82%, 73% 91%, 26% 91%, 20% 80%, 17% 50%, 20% 18%);
+  clip-path: polygon(25% 9%, 69% 9%, 73% 2%, 81% 17%, 84% 48%, 81% 82%, 73% 91%, 26% 91%, 20% 80%, 17% 50%, 20% 18%);
+  filter: drop-shadow(0 9px 12px rgba(45,37,79,.22));
+  transition: filter .22s ease;
+}
+
+.profile-button:hover img,
+.profile-button:focus-visible img {
+  filter:
+    drop-shadow(0 0 8px rgba(255,255,255,.95))
+    drop-shadow(0 0 16px rgba(104,226,255,.85))
+    drop-shadow(0 0 25px rgba(178,91,255,.68));
+}
+
+.profile-button:focus-visible {
+  outline: none;
 }
 
 .learning-grid {
@@ -590,6 +628,6 @@ main {
   .profile-button {
     width: min(92vw, 340px);
     min-width: 0;
-    border-radius: 16px;
+    border-radius: 0;
   }
 }
