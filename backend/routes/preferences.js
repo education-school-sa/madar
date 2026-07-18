@@ -55,42 +55,42 @@ router.delete("/question-bank", async (req, res) => {
   }
 });
 
+function normalizedSchoolSettings(body, fallbackTeacherName = "") {
+  const logoData = String(body.logoData || "");
+  return {
+    schoolName: String(body.schoolName || "").trim(),
+    educationDepartment: String(body.educationDepartment || "").trim(),
+    educationOffice: String(body.educationOffice || "").trim(),
+    teacherName: String(body.teacherName || fallbackTeacherName || "").trim(),
+    principalName: String(body.principalName || "").trim(),
+    academicYear: String(body.academicYear || "").trim(),
+    semester: ["الأول", "الثاني"].includes(body.semester) ? body.semester : "الأول",
+    logoType: ["ksa", "ministry", "custom"].includes(body.logoType) ? body.logoType : "ksa",
+    logoData: logoData.startsWith("data:image/") && logoData.length <= 1500000 ? logoData : "",
+  };
+}
+
 router.get("/reports", async (req, res) => {
   try {
     await ensureTable();
     const { rows } = await pool.query(
-      `SELECT t.name, p.report_settings
-       FROM teachers t LEFT JOIN teacher_preferences p ON p.teacher_id = t.id
-       WHERE t.id = $1`,
+      `SELECT t.name, p.report_settings FROM teachers t
+       LEFT JOIN teacher_preferences p ON p.teacher_id = t.id WHERE t.id = $1`,
       [req.session.teacherId]
     );
-    const saved = rows[0]?.report_settings || {};
-    res.json({
-      schoolName: saved.schoolName || "",
-      educationDepartment: saved.educationDepartment || "",
-      educationOffice: saved.educationOffice || "",
-      teacherName: saved.teacherName || rows[0]?.name || "",
-      academicYear: saved.academicYear || "",
-      principalName: saved.principalName || "",
-    });
+    const saved = normalizedSchoolSettings(rows[0]?.report_settings || {}, rows[0]?.name || "");
+    res.json({ ...saved, complete: Boolean(saved.schoolName && saved.educationDepartment && saved.teacherName && saved.academicYear) });
   } catch (err) {
     console.error("load report settings error", err);
-    res.status(500).json({ error: "تعذّر تحميل إعدادات التقارير." });
+    res.status(500).json({ error: "تعذّر تحميل بيانات المدرسة." });
   }
 });
 
 router.put("/reports", async (req, res) => {
   try {
     await ensureTable();
-    const body = req.body || {};
-    const settings = {
-      schoolName: String(body.schoolName || "").trim(),
-      educationDepartment: String(body.educationDepartment || "").trim(),
-      educationOffice: String(body.educationOffice || "").trim(),
-      teacherName: String(body.teacherName || "").trim(),
-      academicYear: String(body.academicYear || "").trim(),
-      principalName: String(body.principalName || "").trim(),
-    };
+    const { rows: teacherRows } = await pool.query("SELECT name FROM teachers WHERE id=$1", [req.session.teacherId]);
+    const settings = normalizedSchoolSettings(req.body || {}, teacherRows[0]?.name || "");
     if (!settings.schoolName || !settings.educationDepartment || !settings.teacherName || !settings.academicYear) {
       return res.status(400).json({ error: "اسم المدرسة وإدارة التعليم واسم المعلمة والعام الدراسي حقول مطلوبة." });
     }
@@ -101,10 +101,10 @@ router.put("/reports", async (req, res) => {
        RETURNING report_settings`,
       [req.session.teacherId, JSON.stringify(settings)]
     );
-    res.json(rows[0].report_settings);
+    res.json({ ...rows[0].report_settings, complete: true });
   } catch (err) {
     console.error("save report settings error", err);
-    res.status(500).json({ error: "تعذّر حفظ إعدادات التقارير." });
+    res.status(500).json({ error: "تعذّر حفظ بيانات المدرسة." });
   }
 });
 
