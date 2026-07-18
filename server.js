@@ -14,6 +14,7 @@ const testsRoutes = require("./backend/routes/tests");
 const analysisRoutes = require("./backend/routes/analysis");
 const miscRoutes = require("./backend/routes/misc");
 const reportsRoutes = require("./backend/routes/reports");
+const preferencesRoutes = require("./backend/routes/preferences");
 const ownerAuthRoutes = require("./backend/routes/ownerAuth");
 const ownerRoutes = require("./backend/routes/owner");
 
@@ -45,6 +46,7 @@ app.use("/api/teacher/tests", requireAuth, testsRoutes);
 app.use("/api/teacher/analysis", requireAuth, analysisRoutes);
 app.use("/api/teacher/data", requireAuth, miscRoutes);
 app.use("/api/teacher/reports", requireAuth, reportsRoutes);
+app.use("/api/teacher/preferences", requireAuth, preferencesRoutes);
 
 // --- Owner ("مالكة الموقع") API — completely separate role/session from teachers/students.
 // No public registration route exists anywhere for this role; the only account is created
